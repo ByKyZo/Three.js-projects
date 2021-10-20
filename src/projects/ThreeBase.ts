@@ -19,15 +19,6 @@ export abstract class ThreeBase {
         this.textureLoader = new THREE.TextureLoader();
         this.clock = new THREE.Clock();
 
-        // this.camera = new THREE.OrthographicCamera(0, window.innerWidth, 0, window.innerHeight);
-        // this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
-        // // // this.camera = camera;
-        // this.camera.position.z = 3;
-
-        // this.controls = new OrbitControls(this.camera, this.canvas);
-        // this.controls.enableDamping = true;
-        // this.controls.dampingFactor = 0.07;
-
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -42,16 +33,10 @@ export abstract class ThreeBase {
         const elapsedTime = this.clock.getElapsedTime();
 
         this.animate(elapsedTime);
-
-        // Render scene and camera
-        // this.renderer.render(this.scene, this.camera);
     }
 
     private resize() {
         window.addEventListener('resize', () => {
-            // this.camera.aspect = window.innerWidth / window.innerHeight;
-            // this.camera.updateProjectionMatrix();
-
             this.renderer.setSize(window.innerWidth, window.innerHeight);
             this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         });

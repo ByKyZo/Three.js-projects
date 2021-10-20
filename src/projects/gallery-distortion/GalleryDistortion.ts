@@ -12,13 +12,13 @@ export class GalleryDistortion extends ThreeBase {
     // camera: THREE.PerspectiveCamera;
     camera: THREE.OrthographicCamera;
     controls: OrbitControls;
+    meshes: THREE.Mesh[] = [];
     mesh: THREE.Mesh;
 
     constructor(canvas: HTMLCanvasElement) {
         super(canvas);
 
-        // this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
-        const aspectRatio = window.innerWidth / window.innerHeight;
+        const aspectRatio = (window.innerWidth * 0.1) / (window.innerHeight * 0.1);
 
         this.camera = new THREE.OrthographicCamera(
             aspectRatio / -2,
@@ -28,9 +28,11 @@ export class GalleryDistortion extends ThreeBase {
             1,
             1000
         );
-        this.camera.position.set(4, 4, 4);
-        this.camera.lookAt(0, 0, 0);
-        // this.camera.position.z = 3;
+
+        this.camera.position.set(0, 0, 2);
+        this.camera.zoom = 0.3;
+        this.camera.updateProjectionMatrix();
+        // this.camera.lookAt(0, 0, 0);
 
         this.controls = new OrbitControls(this.camera, this.canvas);
         this.controls.enableDamping = true;
@@ -48,9 +50,14 @@ export class GalleryDistortion extends ThreeBase {
             // wireframe: true,
         });
 
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        for (let i = 0; i < 10; i++) {
+            const mesh = new THREE.Mesh(this.geometry, this.material);
+            mesh.position.x = i * 2;
+            this.scene.add(mesh);
+        }
 
-        this.scene.add(this.mesh);
+        // this.scene.add(this.mesh);
+        // this.scene.add([...this.meshes]);
         this.initAnimation();
     }
 
