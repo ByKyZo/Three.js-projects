@@ -7,6 +7,7 @@ attribute vec3 position;
 attribute vec2 uv;
 
 varying vec2 vUv;
+varying float vTime;
 
 void main () {
     vec4 modelPosition = modelMatrix * vec4(position,1.0);
@@ -14,8 +15,9 @@ void main () {
     float speed = 2.0;
     float frequency = 3.0;
 
-    float modifier = sin((modelPosition.x * frequency) + uTime * speed) * 0.1;
-    modifier += sin((modelPosition.y * frequency) + uTime * speed) * 0.1;
+    float modifier = sin((modelPosition.y * frequency) + uTime * speed) * 0.05;
+    modifier += cos((modelPosition.x * frequency) + uTime * speed) * 0.05;
+    // modifier += sin((modelPosition.y * frequency) + uTime * speed) * 0.1;
     // modifier += sin(modelPosition.z + uTime * speed) * 0.1;
 
     modelPosition += modifier;
@@ -26,4 +28,5 @@ void main () {
     gl_Position = projectionPosition;
 
     vUv = uv;
+    vTime = uTime;
 }
